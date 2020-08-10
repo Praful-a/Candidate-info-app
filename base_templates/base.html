@@ -2,11 +2,20 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Base HTML</title>
+    <title>Base</title>
   </head>
   <body>
     <nav>
-      <h1>Navbar</h1>
+      <ul>
+        {% if user.is_authenticated %}
+          Welcome! :) {{user.full_name}}
+          <li><a href="{% url 'candidate:home' %}">Home</a></li> |
+          <li><a href="{% url 'account:logout' %}">Sign Out</a></li>
+        {% else %}
+          <li><a href="{% url 'account:register' %}">Sign Up</a></li> |
+          <li><a href="{% url 'account:login' %}">Sign In</a></li>
+        {% endif %}
+      </ul>
     </nav>
     {% block content %}
     {% endblock %}
